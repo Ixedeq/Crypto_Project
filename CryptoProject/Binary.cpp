@@ -21,7 +21,7 @@ std::vector<std::string> ToBinary(std::string STRING, std::string TYPE){
     {
         case HEX: 
             for (const char &c: CHARS) {
-                Binary.insert(Binary.end(),  std::bitset<6>(c).to_string());
+                Binary.insert(Binary.end(),  std::bitset<4>(c).to_string());
             }
             break;
         
