@@ -14,19 +14,81 @@ VAL HashIt(std::string TYPE){
 }
 
 std::vector<std::string> ToBinary(std::string STRING, std::string TYPE){
-    std::vector<char> CHARS = StringToVector(STRING);
-    std::vector<std::string> Binary;
+    std::vector<char> VEC(STRING.begin(), STRING.end());
+    std::vector<std::string> result;
 
     switch (HashIt(TYPE))
     {
         case HEX: 
-            for (const char &c: CHARS) {
-                Binary.insert(Binary.end(),  std::bitset<8>(c).to_string());
+            for (auto const&c: VEC) {
+                switch (c) {
+                    case '0':
+                        result.insert(result.begin(), "0000");
+                        break;
+                    case '1':
+                        result.insert(result.begin(), "0001");
+                        break;
+                    case '2':
+                        result.insert(result.begin(), "0010");
+                        break;
+                    case '3':
+                        result.insert(result.begin(), "0011");
+                        break;
+                    case '4':
+                        result.insert(result.begin(), "0100");
+                        break;
+                    case '5':
+                        result.insert(result.begin(), "0101");
+                        break;
+                    case '6':
+                        result.insert(result.begin(), "0110");
+                        break;
+                    case '7':
+                        result.insert(result.begin(), "0111");
+                        break;
+                    case '8':
+                        result.insert(result.begin(), "1000");
+                        break;
+                    case '9':
+                        result.insert(result.begin(), "1001");
+                        break;
+                    case 'A':
+                    case 'a':
+                        result.insert(result.begin(), "1010");
+                        break;
+                    case 'B':
+                    case 'b':
+                        result.insert(result.begin(), "1011");
+                        break;
+                    case 'C':
+                    case 'c':
+                        result.insert(result.begin(), "1100");
+                        break;
+                    case 'D':
+                    case 'd':
+                        result.insert(result.begin(), "1101");
+                        break;
+                    case 'E':
+                    case 'e':
+                        result.insert(result.begin(), "1110");
+                        break;
+                    case 'F':
+                    case 'f':
+                        result.insert(result.begin(), "1111");
+                        break;
+                    case '.':
+                        result.insert(result.begin(), ".");
+                        break;
+                    default:
+                        throw std::invalid_argument("\nInvalid hexadecimal digit ");
+                        
+                    }
             }
             break;
         
         default:
+            std::cout<< "Default\n";
             break;
     }
-    return Binary;
+    return result;
 }
