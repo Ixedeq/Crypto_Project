@@ -14,7 +14,7 @@ VAL HashIt(std::string TYPE){
 }
 
 std::vector<std::string> ToBinary(std::string STRING, std::string TYPE){
-    std::vector<char> VEC(STRING.begin(), STRING.end());
+    std::vector<char> VEC = StringToVector(STRING);
     std::vector<std::string> result;
 
     switch (HashIt(TYPE))
