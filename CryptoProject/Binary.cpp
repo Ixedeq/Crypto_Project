@@ -81,6 +81,18 @@ std::vector<std::string> ToBinary(std::string STRING, std::string TYPE){
                     }
             }
             break;
+        case "BIN": 
+            ull B_Number = 0;
+            int cnt = 0;
+            while (N != 0) {
+            int rem = N % 2;
+            ull c = pow(10, cnt);
+            B_Number += rem * c;
+            N /= 2;
+            // Count used to store exponent value
+            cnt++;
+    }
+    return B_Number;
         
         default:
             std::cout<< "Default\n";
