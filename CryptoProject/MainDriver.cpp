@@ -3,11 +3,38 @@
 #include <string>
 #include <set>
 #include "Problem8-Detecing AES in ECB mode.cpp"
+#include "Repeating-key_XOR.cpp"
 
 
 int main() {
+     // Repeating Key XOR main code
+     // Example plaintext
+    std::string plaintext =
+        "Burning 'em, if you ain't quick and nimble\n"
+        "I go crazy when I hear a cymbal";
+    
+    std::string key = "ICE";  // Encryption key
 
-    //Detecting AES in ECB
+    // Encrypt the plaintext
+    std::string ciphertext = repeating_key_xor(plaintext, key);
+    
+    // Expected ciphertext in hexadecimal format
+    std::string expected_hex = 
+        "0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272"
+        "a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f";
+    
+    // Check if the generated ciphertext matches the expected hex
+    if (ciphertext == expected_hex) {
+        std::cout << "Ciphertext matches expected hex." << std::endl;
+    } else {
+        std::cout << "Mismatch detected!" << std::endl;
+    }
+    
+    // Output the plaintext and ciphertext to the console
+    std::cout << "Plaintext:\n" << plaintext << "\n\n";
+    std::cout << "Ciphertext:\n" << ciphertext << "\n";
+
+    //Detecting AES in ECB main code
     std::ifstream infile("/mnt/data/8.txt"); // Replace with your file path
     if (!infile.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
