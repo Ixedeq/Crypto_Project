@@ -4,6 +4,7 @@
 #include <set>
 #include "Problem8-Detecing AES in ECB mode.cpp"
 #include "Repeating-key_XOR.cpp"
+#include "Decrypting Repeating-Key XOR with Hamming Distance in C++.cpp"
 
 
 int main() {
@@ -33,6 +34,17 @@ int main() {
     // Output the plaintext and ciphertext to the console
     std::cout << "Plaintext:\n" << plaintext << "\n\n";
     std::cout << "Ciphertext:\n" << ciphertext << "\n";
+
+     //decrypting repeating key in main
+     std::string str1 = "this is a test";
+    std::string str2 = "wokka wokka!!!";
+    std::cout << "Hamming distance: " << hammingDistance(str1, str2) << std::endl;  
+    
+    std::string base64Ciphertext = "VGhpcyBpcyBhIHRlc3QgbWVzc2FnZQ=="; // Example base64 encoded string ("This is a test message")
+    std::string decodedCiphertext = decodeBase64(base64Ciphertext);
+    
+    decryptRepeatingKeyXOR(decodedCiphertext);
+
 
     //Detecting AES in ECB main code
     std::ifstream infile("/mnt/data/8.txt"); // Replace with your file path
