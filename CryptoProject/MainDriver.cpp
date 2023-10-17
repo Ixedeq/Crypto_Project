@@ -2,9 +2,10 @@
 #include <fstream>
 #include <string>
 #include <set>
-#include "Problem8-Detecing AES in ECB mode.cpp"
-#include "Repeating-key_XOR.cpp"
-#include "Decrypting Repeating-Key XOR with Hamming Distance in C++.cpp"
+#include "Problem 8-Detecing AES in ECB mode.cpp"
+#include "Problem 5 Repeating-key_XOR.cpp"
+#include "Problem 6 Decrypting Repeating-Key XOR with Hamming Distance in C++.cpp"
+#include "Problem 7 Decrypting AES-128-ECB with OpenSSL.cpp"
 
 
 int main() {
