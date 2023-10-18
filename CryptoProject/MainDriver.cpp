@@ -7,6 +7,7 @@
 #include "Hex_B64.cpp"
 #include "BinaryToHex.cpp"
 #include "XOR.cpp"
+#include "Problems 4 and 5"
 //#include "SingleCharXor.cpp"
 
 int main(){
