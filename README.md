@@ -5,6 +5,22 @@ This code suite is to solve the first set of the cryptopal challenges. Coding wa
 Each coder will describe how their contributions work.
 
 Alex:
+contents:
+Binary.cpp: A function for converting string into binary, so far what is included is only hex to binary and other non-working non-used part of the code.
+
+BinaryToDecimal.cpp: Its a simple function that converts the given binary into its decimal form 
+
+BinaryToHex.cpp: It takes a given 4 bit binary number and converts it to its hex counterpart
+
+StringToVector.cpp: It takes a given string and returns a vector that is easier to manipulate.
+
+XOR.cpp: It takes two strings, converts them to its binary counterparts, and xors each bit using a for loop.
+
+Hexb64Converter.cpp: It takes a given hex, converts it to binary, cleans the given output in a form that is acceptable to convert it to its b64 counterpart.  
+
+MainDriver.cpp: Calls the functions so that it corresponds with the questions in the set.
+
+SingleCharXor.cpp: In progress...
 
 
 Zo:
