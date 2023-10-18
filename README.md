@@ -5,6 +5,7 @@ This code suite is to solve the first set of the cryptopal challenges. Coding wa
 Each coder will describe how their contributions work.
 
 Alex:
+
 contents:
 Binary.cpp: A function for converting string into binary, so far what is included is only hex to binary and other non-working non-used part of the code.
 
@@ -24,6 +25,7 @@ SingleCharXor.cpp: In progress...
 
 
 Zo:
+
 Contents
 PKCS#7 Padding: An implementation of the PKCS#7 padding standard, widely used to align messages to the necessary block sizes for encryption algorithms like AES.
 
