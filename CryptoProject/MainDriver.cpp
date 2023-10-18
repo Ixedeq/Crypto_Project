@@ -16,7 +16,31 @@
 //#include "SingleCharXor.cpp"
 
 int main() {
-     // Repeating Key XOR main code
+
+     //Alex
+     std::string EncryptedHex = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
+    std::string solution = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
+   
+    if (Hexb64Converter(EncryptedHex) == solution){
+        std::cout << "True\n";
+    }
+    else{std::cout << "False\n";}
+
+    std::string xor1 = "1c0111001f010100061a024b53535009181c";
+    std::string xor2 = "686974207468652062756c6c277320657965";
+    std::string xorAnswer = "746865206b696420646f6e277420706c6179";
+
+    if (xoring(xor1, xor2) == xorAnswer){
+        std::cout << "True\n";
+    }
+    else{std::cout << "False\n";}
+
+    std::string SingleXor = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
+
+    std::cout << xoring(SingleXor, "f") << "\n";  
+
+     
+     // Repeating Key XOR main code -zo
      // Example plaintext
     std::string plaintext =
         "Burning 'em, if you ain't quick and nimble\n"
@@ -43,7 +67,7 @@ int main() {
     std::cout << "Plaintext:\n" << plaintext << "\n\n";
     std::cout << "Ciphertext:\n" << ciphertext << "\n";
 
-     //decrypting repeating key in main
+     //decrypting repeating key in main - zo
      std::string str1 = "this is a test";
     std::string str2 = "wokka wokka!!!";
     std::cout << "Hamming distance: " << hammingDistance(str1, str2) << std::endl;  
@@ -54,7 +78,7 @@ int main() {
     decryptRepeatingKeyXOR(decodedCiphertext);
 
 
-    //Detecting AES in ECB main code
+    //Detecting AES in ECB main code-zo
     std::ifstream infile("/mnt/data/8.txt"); // Replace with your file path
     if (!infile.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
@@ -73,17 +97,18 @@ int main() {
 
     infile.close();
 
-    //Decrypting AES-128-ECB with OpenSSL
+    //Decrypting AES-128-ECB with OpenSSL-Zo
     std::string base64_encrypted_data = "your_base64_encrypted_data_here";
     std::string key = "YELLOW SUBMARINE";
 
     std::string encrypted_data = decode_base64(base64_encrypted_data);
     std::string decrypted_data = decrypt_aes_ecb(encrypted_data, key);
     std::cout << "Decrypted data: " << decrypted_data << std::endl;
-    std::cout << xoring(SingleXor, "f") << "\n";
-    
+   
 
-    //Problems 4 and 5-Tony
+    /**************************
+         Problems 4 and 5-Tony
+     **************************/
     string hexInput = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
     string base64Output = HexToBase64(hexInput);
     std::cout << "Hex: " << hexInput << std::endl;
