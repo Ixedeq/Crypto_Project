@@ -36,20 +36,20 @@ int main(){
     //Problems 4 and 5-Tony
     string hexInput = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
     string base64Output = HexToBase64(hexInput);
-    cout << "Hex: " << hexInput << endl;
-    cout << "Base64: " << base64Output << endl;
+    std::cout << "Hex: " << hexInput << std::endl;
+    std::cout << "Base64: " << base64Output << std::endl;
 
     string hexString1 = "1c0111001f010100061a024b53535009181c";
     string hexString2 = "686974207468652062756c6c277320657965";
 
     try {
         string xorResult = XORHexStrings(hexString1, hexString2);
-        cout << "Hex String 1: " << hexString1 << endl;
-        cout << "Hex String 2: " << hexString2 << endl;
-        cout << "XOR Result: " << xorResult << endl;
+        std::cout << "Hex String 1: " << hexString1 << std::endl;
+        std::cout << "Hex String 2: " << hexString2 << std::endl;
+        std::cout << "XOR Result: " << xorResult << std::endl;
     }
     catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        std::cerr << "Error: " << e.what() << endl;
     }
 
     string encrypted_hex = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
@@ -76,8 +76,8 @@ int main(){
         }
     }
 
-    cout << "Best Key: " << static_cast<int>(best_key) << endl;
-    cout << "Decrypted Message: " << best_decrypted_message << endl;
+    std::cout << "Best Key: " << static_cast<int>(best_key) << std::endl;
+    std::cout << "Decrypted Message: " << best_decrypted_message << std::endl;
 
     ifstream file("crypto.txt");  
 
@@ -114,8 +114,8 @@ int main(){
         }
     }
 
-    cout << "Best Key: " << static_cast<int>(best_key) << endl;
-    cout << "Decrypted Message: " << best_decrypted_message << endl;
+    std::cout << "Best Key: " << static_cast<int>(best_key) << std::endl;
+    std::cout << "Decrypted Message: " << best_decrypted_message << std::endl;
     
     
     return 0;
