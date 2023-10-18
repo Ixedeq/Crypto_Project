@@ -8,6 +8,40 @@ Alex:
 
 
 Zo:
+Contents
+PKCS#7 Padding: An implementation of the PKCS#7 padding standard, widely used to align messages to the necessary block sizes for encryption algorithms like AES.
+
+CBC Mode Encryption: Scripts to demonstrate the Cipher Block Chaining (CBC) mode for block ciphers, providing data confidentiality by ensuring identical plaintext blocks are encrypted differently.
+
+ECB/CBC Detection Oracle: An oracle function that detects the encryption mode (ECB or CBC) used on a given piece of ciphertext based on the presence of repeating blocks.
+
+Byte-at-a-time ECB Decryption: Demonstrations of side-channel attacks on ECB mode, allowing for decryption of ciphertext one byte at a time by exploiting predictable encryption patterns.
+
+ECB Cut-and-Paste: Examples of attacks on ECB's deterministic encryption, creating valid ciphertexts from rearranged encrypted blocks.
+
+PKCS#7 Padding Validation: Scripts for validating and removing PKCS#7 padding from messages, ensuring consistency with the standard.
+
+CBC Bitflipping Attacks: Demonstrations of how ciphertexts can be tampered with in CBC mode to produce predictable changes in the decrypted plaintext.
+
+CBC Padding Oracle Attack: Exploiting the side-channel leak in the padding validation step of CBC's decryption to reveal plaintext.
+
+CTR Mode Implementation: Demonstrating the Counter (CTR) mode of encryption, which converts block ciphers into stream ciphers by encrypting incrementing counter values.
+
+Fixed-Nonce CTR Mode Attacks: Methods to decrypt ciphertexts that were encrypted using CTR mode with a fixed nonce, leading to vulnerabilities.
+
+MT19937 Mersenne Twister RNG: An implementation of the MT19937 algorithm, a widely used pseudorandom number generator (not suitable for cryptographic secure randomness).
+
+Breaking MT19937 Stream Cipher: Demonstrating the weaknesses of using MT19937 for encryption and how to exploit these vulnerabilities.
+
+AES CTR Bitflipping: Examples of how bit flipping can be used to alter AES-encrypted ciphertexts in CTR mode to produce specific changes in plaintext.
+
+CBC with IV=Key Vulnerability: Showcasing the dangers of using the encryption key as the Initialization Vector (IV) in CBC mode and how this practice can be exploited.
+
+SHA-1 Keyed MAC: Implementing a Message Authentication Code (MAC) with SHA-1 to authenticate, verify integrity, and confirm the authenticity of a message.
+
+Length Extension Attacks: Scripts that exploit the properties of hash functions like SHA-1 and MD4, allowing for the extension of a hashed message without knowing the original key.
+
+HMAC-SHA1 with Timing Leak: A server simulation that demonstrates how timing leaks in HMAC verification can be exploited to forge messages.
 
 
 
