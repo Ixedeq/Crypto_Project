@@ -35,26 +35,3 @@ std::string xorWithChar(const std::string &input, char c) {
     return output;
 }
 
-int main() {
-    const std::string hexStr = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
-    std::string bytes = hexToBytes(hexStr);
-   
-    double bestScore = 0;
-    char bestKey = 0;
-    std::string bestDecryption;
-   
-    for (int c = 0; c <= 255; c++) {
-        std::string decrypted = xorWithChar(bytes, char(c));
-        double currentScore = scoreEnglishText(decrypted);
-        if (currentScore > bestScore) {
-            bestScore = currentScore;
-            bestKey = char(c);
-            bestDecryption = decrypted;
-        }
-    }
-   
-    std::cout << "Key: " << bestKey << std::endl;
-    std::cout << "Decrypted message: " << bestDecryption << std::endl;
-
-    return 0;
-}
