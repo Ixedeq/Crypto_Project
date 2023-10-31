@@ -13,7 +13,7 @@
 #include "BinaryToHex.cpp"
 #include "XOR.cpp"
 #include "Problems 4 and 5"
-//#include "SingleCharXor.cpp"
+#include "Problem 3 Single-Byte XOR Cipher.cpp"
 
 int main() {
 
@@ -104,6 +104,10 @@ int main() {
     std::string encrypted_data = decode_base64(base64_encrypted_data);
     std::string decrypted_data = decrypt_aes_ecb(encrypted_data, key);
     std::cout << "Decrypted data: " << decrypted_data << std::endl;
+
+     /************************
+          Problem 3 - Zo
+     *************************/
    
 
     /**************************
