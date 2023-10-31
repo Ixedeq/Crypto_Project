@@ -17,7 +17,9 @@
 
 int main() {
 
-     //Alex
+     /*****************************************
+      Problem 1- Hex_B64-Alex
+      ****************************************/
      std::string EncryptedHex = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
     std::string solution = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
    
@@ -40,7 +42,9 @@ int main() {
     std::cout << xoring(SingleXor, "f") << "\n";  
 
      
-     // Repeating Key XOR main code -zo
+     /***********************************
+     Problem 5: Repeating Key XOR main code -zo
+     **********************************/
      // Example plaintext
     std::string plaintext =
         "Burning 'em, if you ain't quick and nimble\n"
@@ -67,49 +71,29 @@ int main() {
     std::cout << "Plaintext:\n" << plaintext << "\n\n";
     std::cout << "Ciphertext:\n" << ciphertext << "\n";
 
-     //decrypting repeating key in main - zo
-     std::string str1 = "this is a test";
-    std::string str2 = "wokka wokka!!!";
-    std::cout << "Hamming distance: " << hammingDistance(str1, str2) << std::endl;  
-    
-    std::string base64Ciphertext = "VGhpcyBpcyBhIHRlc3QgbWVzc2FnZQ=="; // Example base64 encoded string ("This is a test message")
-    std::string decodedCiphertext = decodeBase64(base64Ciphertext);
-    
-    decryptRepeatingKeyXOR(decodedCiphertext);
-
-
-    //Detecting AES in ECB main code-zo
-    std::ifstream infile("/mnt/data/8.txt"); // Replace with your file path
-    if (!infile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-        return 1;
-    }
-
-    std::string line;
-    size_t line_number = 0;
-    size_t block_size = 32; // AES block size is 16 bytes, but we're working with hex so it's 32 characters
-    while (std::getline(infile, line)) {
-        line_number++;
-        if (has_repeating_blocks(line, block_size)) {
-            std::cout << "Ciphertext on line " << line_number << " is likely encrypted with AES in ECB mode." << std::endl;
-        }
-    }
-
-    infile.close();
-
-    //Decrypting AES-128-ECB with OpenSSL-Zo
-    std::string base64_encrypted_data = "your_base64_encrypted_data_here";
-    std::string key = "YELLOW SUBMARINE";
-
-    std::string encrypted_data = decode_base64(base64_encrypted_data);
-    std::string decrypted_data = decrypt_aes_ecb(encrypted_data, key);
-    std::cout << "Decrypted data: " << decrypted_data << std::endl;
-
      /************************
           Problem 3 - Zo
      *************************/
+     const std::string hexStr = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
+    std::string bytes = hexToBytes(hexStr);
    
-
+    double bestScore = 0;
+    char bestKey = 0;
+    std::string bestDecryption;
+   
+    for (int c = 0; c <= 255; c++) {
+        std::string decrypted = xorWithChar(bytes, char(c));
+        double currentScore = scoreEnglishText(decrypted);
+        if (currentScore > bestScore) {
+            bestScore = currentScore;
+            bestKey = char(c);
+            bestDecryption = decrypted;
+        }
+    }
+   
+    std::cout << "Key: " << bestKey << std::endl;
+    std::cout << "Decrypted message: " << bestDecryption << std::endl;
+     
     /**************************
          Problems 4 and 5-Tony
      **************************/
@@ -195,7 +179,61 @@ int main() {
 
     std::cout << "Best Key: " << static_cast<int>(best_key) << std::endl;
     std::cout << "Decrypted Message: " << best_decrypted_message << std::endl;
+
+     
+     /*************************************
+      Problem 6: decrypting repeating key in main - zo
+     *************************************/
+     std::string str1 = "this is a test";
+    std::string str2 = "wokka wokka!!!";
+    std::cout << "Hamming distance: " << hammingDistance(str1, str2) << std::endl;  
     
+    std::string base64Ciphertext = "VGhpcyBpcyBhIHRlc3QgbWVzc2FnZQ=="; // Example base64 encoded string ("This is a test message")
+    std::string decodedCiphertext = decodeBase64(base64Ciphertext);
     
+    decryptRepeatingKeyXOR(decodedCiphertext);
+
+     /*************************************************
+     Problem 7: Decrypting AES-128-ECB with OpenSSL-Zo
+    *************************************************/
+    std::string base64_encrypted_data = "your_base64_encrypted_data_here";
+    std::string key = "YELLOW SUBMARINE";
+
+    std::string encrypted_data = decode_base64(base64_encrypted_data);
+    std::string decrypted_data = decrypt_aes_ecb(encrypted_data, key);
+    std::cout << "Decrypted data: " << decrypted_data << std::endl;
+
+     
+     /*************************************************
+     Problem 7: Decrypting AES-128-ECB with OpenSSL-Zo
+    *************************************************/
+    std::string base64_encrypted_data = "your_base64_encrypted_data_here";
+    std::string key = "YELLOW SUBMARINE";
+
+    std::string encrypted_data = decode_base64(base64_encrypted_data);
+    std::string decrypted_data = decrypt_aes_ecb(encrypted_data, key);
+    std::cout << "Decrypted data: " << decrypted_data << std::endl;
     return 0;
+
+
+    /************************************
+     Problem 8: Detecting AES in ECB main code-zo
+    *************************************/
+    std::ifstream infile("/mnt/data/8.txt"); // Replace with your file path
+    if (!infile.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+        return 1;
+    }
+
+    std::string line;
+    size_t line_number = 0;
+    size_t block_size = 32; // AES block size is 16 bytes, but we're working with hex so it's 32 characters
+    while (std::getline(infile, line)) {
+        line_number++;
+        if (has_repeating_blocks(line, block_size)) {
+            std::cout << "Ciphertext on line " << line_number << " is likely encrypted with AES in ECB mode." << std::endl;
+        }
+    }
+
+    infile.close();
 }
