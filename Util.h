@@ -3,8 +3,12 @@
 #include <bitset>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 
 using namespace std; 
+
+ofstream ExternalFile("File.txt"); 
 
 const string Problem1_Hex = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
 const string Problem1_Solution = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
@@ -15,6 +19,9 @@ const string Problem2_Solution = "746865206b696420646f6e277420706c6179";
 
 const string Problem3_Hex = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
 const string Problem3_Solution = "Cooking MC's like a pound of bacon";
+
+const string Problem4_FileName = "HexList.txt";
+const string Problem4_solution = "Now that the party is jumping\n";
 
 const string Problem5_Stanza = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal";
 const string Problem5_Key = "ICE";
@@ -310,59 +317,20 @@ vector<string> CharToByte(int n) {
   return BinaryBytes;
 } 
 double scoreEnglishText(const std::string &text) {
-    static const std::string freq = "etaoinshrdlcumwfgypbvkjxqz";
+    static const std::string freq = "etaoinshrdlcumwfgypbvkjxqzETAOINSHRDLCUMWFGYPBVKJXQZ";
     double score = 0;
     for (int i = 0; i < text.length(); i++) {
-        char lower = tolower(text[i]);
-        size_t pos = freq.find(lower);
+        size_t pos = freq.find(text[i]);
         if (pos != std::string::npos) {
             score += (freq.size() - pos);
         }
     }
     return score;
 }
-string Single_Byte_Xor(vector<string> hexBytes){
-  double score;
-  string Result;
-  vector<string> currentByte;
-  vector<string> xored;
-  vector<string> temp;
-  for(int j = 0; j < 256; j++){
-    for(int i = 0; i < hexBytes.size(); i+=2){
-      currentByte.insert(currentByte.end(), hexBytes[i]);
-      currentByte.insert(currentByte.end(), hexBytes[i+1]);
-      temp = Fixed_Xor(currentByte, CharToByte(j));
-      xored.insert(xored.end(), temp.begin(), temp.end());
-      currentByte.clear();
-    }
-    
-    if(scoreEnglishText(BinaryToText(xored)) > score){
-      score = scoreEnglishText(BinaryToText(xored));
-      Result = BinaryToText(xored);
-    }
-    xored.clear();
-  }
-  return Result;
-}
-string DetectingSingleXor(string FileName){
-  ifstream file (FileName);
-  double score = 0;
-  string result;
-  vector<string> xored;
-  for( std::string line; getline( file, line ); ){
-    xored.insert(xored.end(), Single_Byte_Xor(HexToBytes(line)));
-  }
-  for(int i = 0; i < xored.size(); i++){
-    if(scoreEnglishText(xored[i]) > score){
-      score = scoreEnglishText(xored[i]);
-      result = xored[i];
-    }
-  }
-  return result;
-}
-string RepeatingKeyXor(string stanza, string keys){
+vector<string> RepeatingKeyXor(string stanza, string keys){
   int keyIndex = 0;
-  string hex = "";
+  vector<string> Binary;
+  vector<string> TempBinary;
   for(int i = 0; i < stanza.size(); i++){
       if(keyIndex >= keys.length()){
           keyIndex = 0;
@@ -370,22 +338,70 @@ string RepeatingKeyXor(string stanza, string keys){
       stanza[i] = stanza[i] ^ keys[keyIndex];
       keyIndex++;
   }
+  // for(int i = 0; i < stanza.size(); i++){
+  //     hex += BinaryToHex(CharToByte(stanza[i]));
+  // }
   for(int i = 0; i < stanza.size(); i++){
-      hex += BinaryToHex(CharToByte(stanza[i]));
+    TempBinary = CharToByte(stanza[i]);
+    Binary.insert(Binary.end(), TempBinary.begin(), TempBinary.end());
   }
-  return hex;
+  // return hex;
+  return Binary;
 }
-int hammingDist(vector<string> Binary1, vector<string> Binary2) 
-{ 
-    int count = 0; 
-    for(int i = 0; i < Binary1.size(); i++){
-      for(int j = 0; j < 4; j++){
-        if((Binary1[i][j]) != (Binary2[i][j])){
-          count ++;
-        }
+string SingleByteXor(vector<string> Binary){
+  double score = 0;
+  double tempscore;
+  char ToChar;
+  string ToString, result;
+  vector<string> XoredString;
+
+  string Text = BinaryToText(Binary);
+  string processedText;
+
+  for(int Char = 0; Char < 256; Char++){
+    ToChar = Char;
+    ToString = ToChar;
+    processedText = BinaryToText(RepeatingKeyXor(Text, ToString));
+    tempscore = scoreEnglishText(processedText);
+    if(tempscore > score){
+      score = tempscore;
+      //ExternalFile << processedText << endl;
+      result = processedText;
+    }
+  }
+  return result;
+}
+string DetectingSingleXor(string FileName){
+  ifstream file (FileName);
+
+  double score = 0;
+  double tempScore;
+  string Answer, xored, line;
+
+  while(file){
+    file >> line;
+    if(file){
+      xored = SingleByteXor(HexToBytes(line));
+      tempScore = scoreEnglishText(xored);
+      if(tempScore > score){
+        score = tempScore;
+        Answer = xored;
       }
     }
-    return count; 
+  }
+  return Answer;
+}
+int hammingDist(string oneString, string twoString) { 
+    vector<string> stringOne, stringTwo;
+
+    int hammingDist = 0;
+    for(int i = 0; i<oneString.length(); i++){
+        if(oneString[i]!= twoString[i]){
+            hammingDist++;
+        }
+    }
+
+    return hammingDist;
 } 
 string BreakXor(string FileName){
   ifstream file(FileName);
@@ -396,8 +412,8 @@ string BreakXor(string FileName){
   }
 
   vector<string> FileBytes = B64Decoder(fileContent);
-  vector<string> Tempbytes1;
-  vector<string> Tempbytes2;
+  string Tempbytes1;
+  string Tempbytes2;
   vector<int> Distances;
   vector<int> TempDist;
 
@@ -405,12 +421,12 @@ string BreakXor(string FileName){
 
   for(int KEYSIZE = 2; KEYSIZE < (FileBytes.size()/2); KEYSIZE++){
     for(int i = 0; i < KEYSIZE; i++){
-      Tempbytes1.insert(Tempbytes1.end(), FileBytes[i]);
-      Tempbytes2.insert(Tempbytes2.end(), FileBytes[i+KEYSIZE]);
+      Tempbytes1 += (FileBytes[i]);
+      Tempbytes2 += (FileBytes[i+KEYSIZE]);
     }
-    Distances.insert(Distances.end(), hammingDist(Tempbytes1, Tempbytes2));
-    Tempbytes1.clear();
-    Tempbytes2.clear();
+    Distances.insert(Distances.end(), (hammingDist(Tempbytes1, Tempbytes2)));
+    Tempbytes1 = "";
+    Tempbytes2 = "";
   }
   TempDist = Distances;
   sort(Distances.begin(), Distances.end());
@@ -421,12 +437,38 @@ string BreakXor(string FileName){
       break;
     }
   }
-  
+
   TempDist.clear();
   Distances.clear();
 
-  for(int i = 0; i < KEY_SIZE; i++){
-    cout << "Im fucking tired of this shit\n";
+  int fileIndex = 0;
+  string blockString;
+  vector<string> block;
+  
+  fileContent = BinaryToText(FileBytes);
+  for(int i = 0; i < fileContent.length(); i++){
+    if(fileIndex > KEY_SIZE){
+      block.push_back(blockString);
+      blockString = "";
+      fileIndex = 0;
+    }
+    blockString += fileContent[i];
+    fileIndex++;
+  }
+
+  string transposedContent;
+  vector<string> transposedBlock;
+
+  for(int i = 0; i<KEY_SIZE; i++){
+    for(int k = 0; k < block.size(); k++){
+      transposedContent += block[k][i];
+    }
+    transposedBlock.push_back(transposedContent);
+    transposedContent = "";
+  }
+  for(int i = 0; i < transposedBlock.size(); i++){
+    cout<<"Block "<<i<<endl<<endl;
+    cout<<transposedBlock[i]<<endl<<endl<<endl;
   }
 
 
