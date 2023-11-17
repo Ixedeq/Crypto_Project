@@ -1,0 +1,57 @@
+Nate Pardee
+
+/**************************
+    BinaryToHex
+***************************/
+Test(BinaryToHexTests, switchTests)
+{
+    EXPECT_EQ(BinaryToHex("0123456789abcdef")[0], "0000");
+
+   EXPECT_EQ(BinaryToHex("0123456789abcdef")[8], "1000");
+
+   EXPECT_EQ(BinaryToHex("0123456789abcdef")[16], "FFFF");
+
+   EXPECT_NO_THROW(BinaryToHex("00123456789aAbBcCdDeEfF"));
+
+}
+
+/**************
+B64Decoder
+**************/
+
+Test(B64DecoderTests, returnTest)
+{
+   //test string to see if triggers throw
+   //using first 18 chars from given string in problem
+    EXPECT_NO_THROW(B64Decoder("49276d206b696c6c69"))
+
+    EXPECT_EQ(B64Decoder("49276d206b696c6c69"), "SSdtIGtpbGxp")
+}
+
+/*******************
+    FixedXor Tests
+********************/
+
+Test(FixedXor, returnTest)
+{
+    EXPECT_NO_THROW(FixedXor("123", "123"));
+}
+
+Test(FixedXor, tryCatch)
+{
+    EXPECT_EXIT(FixedXor("1", "0"),  testing::ExitedWithCode(0), "");
+}
+
+/*****************
+    Char To Bytes
+*****************/
+
+Test(CharToByteTests, returnTest)
+{
+    EXPECT_EQ(CharToByte(3), "0000 0011");
+    EXPECT_NE(CharToByte(3), "0000011");
+}
+
+Test
+
+
