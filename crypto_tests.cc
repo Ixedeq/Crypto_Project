@@ -33,10 +33,16 @@ TEST(CryptoProblems, Problem3){
 ***************************/
 TEST(BinaryToHexTests, switchTests)
 {
-   EXPECT_EQ(BinaryToHex("0123456789abcdef")[0], "0000");
-   EXPECT_EQ(BinaryToHex("0123456789abcdef")[8], "1000");
-   EXPECT_EQ(BinaryToHex("0123456789abcdef")[16], "FFFF");
-   EXPECT_NO_THROW(BinaryToHex("00123456789aAbBcCdDeEfF"));
+
+  vector <string> hexValues16 = {"0123456789abcdef"};
+  vector <string> hexValues24 = {"00123456789aAbBcCdDeEfF"};
+  string result1 = "0000";
+  string result2 = "1000";
+  string result3 = "FFFF";
+   EXPECT_EQ(BinaryToHex(hexValues16)[0], result1);
+   EXPECT_EQ(BinaryToHex(hexValues16)[8], result2);
+   EXPECT_EQ(BinaryToHex(hexValues16)[16], result3);
+   EXPECT_NO_THROW(BinaryToHex(hexValues24));
 
 }
 
@@ -57,12 +63,16 @@ TEST(B64DecoderTests, returnTest)
 
 TEST(FixedXorTests, returnTest)
 {
-  string one = "123";
-    EXPECT_NO_THROW(Fixed_Xor(one, "123"));
+  vector <string> one = {"123"};
+  vector <string> test = {"123"};
+
+    EXPECT_NO_THROW(Fixed_Xor(one, test));
 }
 TEST(FixedXorTests, tryCatch)
 {
-    EXPECT_EXIT(Fixed_Xor("1", "0"),  testing::ExitedWithCode(0), "");
+    vector <string> bytestring1 = {"1"};
+  vector <string> bytestring2 = {"0"};
+    EXPECT_EXIT(Fixed_Xor(bytestring1, bytestring2),  testing::ExitedWithCode(0), "");
 }
 
 /*****************
@@ -109,17 +119,21 @@ TEST(HammingDistTests, returnTest)
 }
 TEST(HammingDistTests, InputValidation)
 {
+  string throwTest = "Bed";
+  string throwTest2 = "3";
   //check that if a different data type is passed, there will be a throw
-  EXPECT_ANY_THROW(hammingDist("Bed", 3));
+  EXPECT_ANY_THROW(hammingDist(throwTest, throwTest2));
 }
 /***************
  Break Xor
 ****************/
-TEST(BreakXorTests returnTest)
-{
-  EXPECT_EQ(BreakXor())
+// TEST(BreakXorTests returnTest)
+// {
 
-}
+//   //This needs to be added to the util file
+//   EXPECT_EQ(BreakXor(problem_6_file), problem_6_result);
+
+// }
 
 int main(int argc, char ** argv)
 {
@@ -127,3 +141,5 @@ int main(int argc, char ** argv)
   return RUN_ALL_TESTS();
 
 }
+
+ 
