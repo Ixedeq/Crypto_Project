@@ -33,6 +33,12 @@ target_link_libraries(
  add_test(B64DecoderTests crypto_tests)
  add_test(CharToByteTests crypto_tests)
  add_test(scoreEnglishTextTests crypto_tests)
+  add_test(DetectingSingleXorTests crypto_tests)
+  add_test(RepeatingKeyXorTests crypto_tests)
+  add_test(HammingDistTests crypto_tests)
+#  add_test(BreakXor crypto_tests)
+  add_test(HasRepeatingBlocksTests crypto_tests)
+
  
  include(GoogleTest)
  gtest_discover_tests(crypto_tests)
