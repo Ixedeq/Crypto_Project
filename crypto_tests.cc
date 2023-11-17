@@ -33,12 +33,9 @@ TEST(CryptoProblems, Problem3){
 ***************************/
 TEST(BinaryToHexTests, switchTests)
 {
-    EXPECT_EQ(BinaryToHex("0123456789abcdef")[0], "0000");
-
+   EXPECT_EQ(BinaryToHex("0123456789abcdef")[0], "0000");
    EXPECT_EQ(BinaryToHex("0123456789abcdef")[8], "1000");
-
    EXPECT_EQ(BinaryToHex("0123456789abcdef")[16], "FFFF");
-
    EXPECT_NO_THROW(BinaryToHex("00123456789aAbBcCdDeEfF"));
 
 }
@@ -52,19 +49,17 @@ TEST(B64DecoderTests, returnTest)
    //test string to see if triggers throw
    //using first 18 chars from given string in problem
     EXPECT_NO_THROW(B64Decoder("49276d206b696c6c69"));
-
     EXPECT_EQ(B64Decoder("49276d206b696c6c69"), "SSdtIGtpbGxp");
 }
-
 /*******************
     FixedXor Tests
 ********************/
 
 TEST(FixedXorTests, returnTest)
 {
-    EXPECT_NO_THROW(Fixed_Xor("123", "123"));
+  string one = "123";
+    EXPECT_NO_THROW(Fixed_Xor(one, "123"));
 }
-
 TEST(FixedXorTests, tryCatch)
 {
     EXPECT_EXIT(Fixed_Xor("1", "0"),  testing::ExitedWithCode(0), "");
@@ -73,7 +68,6 @@ TEST(FixedXorTests, tryCatch)
 /*****************
     Char To Bytes
 *****************/
-
 TEST(CharToByteTests, returnTest)
 {
     EXPECT_EQ(CharToByte(3), "0000 0011");
@@ -86,7 +80,45 @@ TEST(CharToByteTests, returnTest)
 
 TEST(scoreEnglishTextTests, returnTest)
 {
-    EXPECT_EQ(scoreEnglishText("A"), 1);
+    EXPECT_EQ(scoreEnglishText("A"), 6);
+}
+
+/***************************
+ Detecting Single Xor
+****************************/
+TEST(DetectingSingleXorTests, returnTest)
+{
+  EXPECT_EQ(DetectingSingleXor(Problem4_FileName), Problem4_solution);
+  
+}
+
+/*************************
+  Repeating Key Xor
+**************************/
+TEST(RepeatingKeyXorTests, returnTest)
+{
+
+}
+
+/******************
+ Hamming Distance
+******************/
+TEST(HammingDistTests, returnTest)
+{
+  EXPECT_EQ(hammingDist("Bed", "cad"), 2);
+}
+TEST(HammingDistTests, InputValidation)
+{
+  //check that if a different data type is passed, there will be a throw
+  EXPECT_ANY_THROW(hammingDist("Bed", 3));
+}
+/***************
+ Break Xor
+****************/
+TEST(BreakXorTests returnTest)
+{
+  EXPECT_EQ(BreakXor())
+
 }
 
 int main(int argc, char ** argv)
@@ -95,4 +127,3 @@ int main(int argc, char ** argv)
   return RUN_ALL_TESTS();
 
 }
-
