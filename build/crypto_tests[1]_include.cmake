@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/ryand/OneDrive - Coastal Alabama Community College/Documents/GitHub/Crypto_Project/build/crypto_tests[1]_tests.cmake")
+  include("C:/Users/ryand/OneDrive - Coastal Alabama Community College/Documents/GitHub/Crypto_Project/build/crypto_tests[1]_tests.cmake")
+else()
+  add_test(crypto_tests_NOT_BUILT crypto_tests_NOT_BUILT)
+endif()

@@ -44,6 +44,10 @@ TEST(BinaryToHexTests, switchTests)
    EXPECT_EQ(BinaryToHex(hexValues16)[16], result3);
    EXPECT_NO_THROW(BinaryToHex(hexValues24));
 
+   // RYAN test invalid input
+   vector <string> badInput = {"ghijkplo"};
+   EXPECT_EXIT(BinaryToHex(badInput)[0], testing::ExitedWithCode(0), "");
+
 }
 
 /**************
@@ -71,8 +75,15 @@ TEST(FixedXorTests, returnTest)
 TEST(FixedXorTests, tryCatch)
 {
     vector <string> bytestring1 = {"1"};
-  vector <string> bytestring2 = {"0"};
+    vector <string> bytestring2 = {"0"};
+
     EXPECT_EXIT(Fixed_Xor(bytestring1, bytestring2),  testing::ExitedWithCode(0), "");
+
+    // RYAN - Testing two unequal length byte strings
+    vector <string> bytestring3 = {"1234"};
+    vector <string> bytestring4 = {"123"};
+    
+    EXPECT_EXIT(Fixed_Xor(bytestring3, bytestring4), testing::ExitedWithCode(0),"");
 }
 
 /*****************
@@ -91,6 +102,7 @@ TEST(CharToByteTests, returnTest)
 TEST(scoreEnglishTextTests, returnTest)
 {
     EXPECT_EQ(scoreEnglishText("A"), 6);
+    // RYAN I don't think this needs any more tests lol
 }
 
 /***************************
@@ -99,6 +111,10 @@ TEST(scoreEnglishTextTests, returnTest)
 TEST(DetectingSingleXorTests, returnTest)
 {
   EXPECT_EQ(DetectingSingleXor(Problem4_FileName), Problem4_solution);
+
+  // RYAN Test bad file name enter
+  // I think this should return an empty string????? Not too sure
+  EXPECT_EQ(DetectingSingleXor("ima/bad/filename.txt"), "")
   
 }
 

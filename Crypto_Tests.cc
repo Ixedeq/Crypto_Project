@@ -25,5 +25,137 @@ TEST(CryptoProblems, Problem2){
 }
 TEST(CryptoProblems, Problem3){
   // expect equality
-  EXPECT_EQ(Single_Byte_Xor(HexToBytes(Problem3_Hex)), Problem3_Solution);
+  EXPECT_EQ(SingleByteXor(HexToBytes(Problem3_Hex)), Problem3_Solution);
 }
+
+/**************************
+    BinaryToHex
+***************************/
+TEST(BinaryToHexTests, switchTests)
+{
+
+  vector <string> hexValues16 = {"0123456789abcdef"};
+  vector <string> hexValues24 = {"00123456789aAbBcCdDeEfF"};
+  string result1 = "0000";
+  string result2 = "1000";
+  string result3 = "FFFF";
+   EXPECT_EQ(BinaryToHex(hexValues16)[0], result1);
+   EXPECT_EQ(BinaryToHex(hexValues16)[8], result2);
+   EXPECT_EQ(BinaryToHex(hexValues16)[16], result3);
+   EXPECT_NO_THROW(BinaryToHex(hexValues24));
+
+   // RYAN test invalid input
+   vector <string> badInput = {"ghijkplo"};
+   EXPECT_EXIT(BinaryToHex(badInput)[0], testing::ExitedWithCode(0), "");
+
+}
+
+/**************
+B64Decoder
+**************/
+
+TEST(B64DecoderTests, returnTest)
+{
+   //test string to see if triggers throw
+   //using first 18 chars from given string in problem
+    EXPECT_NO_THROW(B64Decoder("49276d206b696c6c69"));
+    EXPECT_EQ(B64Decoder("49276d206b696c6c69"), "SSdtIGtpbGxp");
+}
+/*******************
+    FixedXor Tests
+********************/
+
+TEST(FixedXorTests, returnTest)
+{
+  vector <string> one = {"123"};
+  vector <string> test = {"123"};
+
+    EXPECT_NO_THROW(Fixed_Xor(one, test));
+}
+TEST(FixedXorTests, tryCatch)
+{
+    vector <string> bytestring1 = {"1"};
+    vector <string> bytestring2 = {"0"};
+
+    EXPECT_EXIT(Fixed_Xor(bytestring1, bytestring2),  testing::ExitedWithCode(0), "");
+
+    // RYAN - Testing two unequal length byte strings
+    vector <string> bytestring3 = {"1234"};
+    vector <string> bytestring4 = {"123"};
+    
+    EXPECT_EXIT(Fixed_Xor(bytestring3, bytestring4), testing::ExitedWithCode(0),"");
+}
+
+/*****************
+    Char To Bytes
+*****************/
+TEST(CharToByteTests, returnTest)
+{
+    EXPECT_EQ(CharToByte(3), "0000 0011");
+    EXPECT_NE(CharToByte(3), "0000011");
+}
+
+/**************************
+ ScoreEnglishTextTests
+***************************/
+
+TEST(scoreEnglishTextTests, returnTest)
+{
+    EXPECT_EQ(scoreEnglishText("A"), 6);
+    // RYAN I don't think this needs any more tests lol
+}
+
+/***************************
+ Detecting Single Xor
+****************************/
+TEST(DetectingSingleXorTests, returnTest)
+{
+  EXPECT_EQ(DetectingSingleXor(Problem4_FileName), Problem4_solution);
+
+  // RYAN Test bad file name enter
+  // I think this should return an empty string????? Not too sure
+  EXPECT_EQ(DetectingSingleXor("ima/bad/filename.txt"), "")
+  
+}
+
+/*************************
+  Repeating Key Xor
+**************************/
+TEST(RepeatingKeyXorTests, returnTest)
+{
+
+}
+
+/******************
+ Hamming Distance
+******************/
+TEST(HammingDistTests, returnTest)
+{
+  EXPECT_EQ(hammingDist("Bed", "cad"), 2);
+}
+TEST(HammingDistTests, InputValidation)
+{
+  string throwTest = "Bed";
+  string throwTest2 = "3";
+  //check that if a different data type is passed, there will be a throw
+  EXPECT_ANY_THROW(hammingDist(throwTest, throwTest2));
+}
+/***************
+ Break Xor
+****************/
+// TEST(BreakXorTests returnTest)
+// {
+
+//   //This needs to be added to the util file
+//   EXPECT_EQ(BreakXor(problem_6_file), problem_6_result);
+
+// }
+
+int main(int argc, char ** argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+
+}
+
+ 
