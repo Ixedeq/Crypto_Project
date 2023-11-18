@@ -5,6 +5,8 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <set>
+#include <string>
 
 using namespace std; 
 
@@ -27,6 +29,7 @@ const string Problem5_Stanza = "Burning 'em, if you ain't quick and nimble\nI go
 const string Problem5_Key = "ICE";
 const string Problem5_Answer = "0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f";
 
+//problem 1
 vector<string> HexToBytes(const string& hex) {
   vector<string> ByteString;
   try{
@@ -127,6 +130,8 @@ vector<string> HexToBytes(const string& hex) {
   // }          
   return ByteString;
 }
+
+//problem 1
 string HexToB64(vector<string> ByteString){
   
   char char_set[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; 
@@ -166,6 +171,8 @@ string HexToB64(vector<string> ByteString){
 
   return encrypted;    
 }
+
+//problem 1
 vector<string> B64Decoder(string B64String){
   vector<int> B64Num;
   string binary;
@@ -198,6 +205,8 @@ vector<string> B64Decoder(string B64String){
   return BinaryBytes;
   
 }
+
+//problem 1
 string BinaryToHex(vector<string> Binary){
     string hex = "";
     for(int i = 0; i < Binary.size(); i++){
@@ -257,6 +266,8 @@ string BinaryToHex(vector<string> Binary){
     }
     return hex;
 }
+
+//problem 2
 vector<string> Fixed_Xor(vector<string> ByteString1, vector<string> ByteString2){
   vector<string> fullXor;
   string currentXor;
@@ -280,6 +291,7 @@ vector<string> Fixed_Xor(vector<string> ByteString1, vector<string> ByteString2)
   }
   return fullXor;
 }
+
 string BinaryToText(vector<string> binary) {
     string binaryString;
     for(int i = 0; i < binary.size(); i++){
@@ -296,6 +308,8 @@ string BinaryToText(vector<string> binary) {
     text.pop_back();
     return text;
 }
+
+//problem 3
 vector<string> CharToByte(int n) { 
   string binary;
   vector<string> BinaryBytes;
@@ -316,6 +330,8 @@ vector<string> CharToByte(int n) {
   BinaryBytes.insert(BinaryBytes.end(), binary); 
   return BinaryBytes;
 } 
+
+//problem 3
 double scoreEnglishText(const std::string &text) {
     static const std::string freq = "etaoinshrdlcumwfgypbvkjxqzETAOINSHRDLCUMWFGYPBVKJXQZ";
     double score = 0;
@@ -327,6 +343,8 @@ double scoreEnglishText(const std::string &text) {
     }
     return score;
 }
+
+//Problem 5
 vector<string> RepeatingKeyXor(string stanza, string keys){
   int keyIndex = 0;
   vector<string> Binary;
@@ -348,6 +366,8 @@ vector<string> RepeatingKeyXor(string stanza, string keys){
   // return hex;
   return Binary;
 }
+
+//problem 3
 string SingleByteXor(vector<string> Binary){
   double score = 0;
   double tempscore;
@@ -371,8 +391,10 @@ string SingleByteXor(vector<string> Binary){
   }
   return result;
 }
+
+//problem 4
 string DetectingSingleXor(string FileName){
-  ifstream file (FileName);
+  ifstream file (FileName); 
 
   double score = 0;
   double tempScore;
@@ -391,6 +413,8 @@ string DetectingSingleXor(string FileName){
   }
   return Answer;
 }
+
+//problem 6
 int hammingDist(string oneString, string twoString) { 
     vector<string> stringOne, stringTwo;
 
@@ -403,6 +427,8 @@ int hammingDist(string oneString, string twoString) {
 
     return hammingDist;
 } 
+
+//Problem 6
 string BreakXor(string FileName){
   ifstream file(FileName);
   string fileContent;
@@ -470,8 +496,19 @@ string BreakXor(string FileName){
     cout<<"Block "<<i<<endl<<endl;
     cout<<transposedBlock[i]<<endl<<endl<<endl;
   }
+}
 
-
-  return "hi";
+//problem 8
+bool has_repeating_blocks(const std::string& ciphertext, size_t block_size) {
+    std::set<std::string> seen_blocks;
+    for (size_t i = 0; i < ciphertext.size(); i += block_size) {
+        std::string block = ciphertext.substr(i, block_size);
+        if (seen_blocks.find(block) != seen_blocks.end()) {
+            // Repeating block found
+            return true;
+        }
+        seen_blocks.insert(block);
+    }
+    return false;
 }
 
