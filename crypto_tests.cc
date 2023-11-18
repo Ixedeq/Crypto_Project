@@ -44,6 +44,10 @@ TEST(BinaryToHexTests, switchTests)
    EXPECT_EQ(BinaryToHex(hexValues16)[16], result3);
    EXPECT_NO_THROW(BinaryToHex(hexValues24));
 
+   // RYAN test invalid input
+   vector <string> badInput = {"ghijkplo"};
+   EXPECT_EXIT(BinaryToHex(badInput)[0], testing::ExitedWithCode(0), "");
+
 }
 
 /**************
@@ -73,6 +77,14 @@ TEST(FixedXorTests, tryCatch)
     vector <string> bytestring1 = {"1"};
   vector <string> bytestring2 = {"0"};
     EXPECT_EXIT(Fixed_Xor(bytestring1, bytestring2),  testing::ExitedWithCode(0), "");
+
+
+// RYAN - Testing two unequal length byte strings
+    vector <string> bytestring3 = {"1234"};
+    vector <string> bytestring4 = {"123"};
+    
+    EXPECT_EXIT(Fixed_Xor(bytestring3, bytestring4), testing::ExitedWithCode(0),"");
+
 }
 
 /*****************
@@ -99,6 +111,10 @@ TEST(scoreEnglishTextTests, returnTest)
 TEST(DetectingSingleXorTests, returnTest)
 {
   EXPECT_EQ(DetectingSingleXor(Problem4_FileName), Problem4_solution);
+
+  // RYAN Test bad file name enter
+  // I think this should return an empty string????? Not too sure
+  EXPECT_EQ(DetectingSingleXor("ima/bad/filename.txt"), "");
   
 }
 
@@ -107,8 +123,18 @@ TEST(DetectingSingleXorTests, returnTest)
 **************************/
 TEST(RepeatingKeyXorTests, returnTest)
 {
-
+  string notEqual = "100123ba46fcd";
+  EXPECT_EQ(RepeatingKeyXor(Problem5_Stanza,Problem5_Key), Problem5_Answer);
+  EXPECT_NE(RepeatingKeyXor(Problem5_Stanza, Problem5_Key), notEqual);
 }
+
+TEST(RepeatingKeyXorTests, inputValidation)
+{
+  string badKey = "FIRE";
+  
+  EXPECT_ANY_THROW(RepeatingKeyXor(Problem5_Stanza, badKey));
+}
+
 
 /******************
  Hamming Distance
